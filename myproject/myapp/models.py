@@ -5,6 +5,8 @@ from django.db import models
 # deklaracja statycznej listy wyboru do wykorzystania w klasie modelu
 MONTHS = models.IntegerChoices('Miesiace', 'Styczeń Luty Marzec Kwiecień Maj Czerwiec Lipiec Sierpień Wrzesień Październik Listopad Grudzień')
 
+PLEC = models.IntegerChoices('Plec', 'kobieta mezczyzna inne')
+
 SHIRT_SIZES = (
         ('S', 'Small'),
         ('M', 'Medium'),
@@ -32,24 +34,17 @@ class Person(models.Model):
     
 
 class Stanowisko(models.Model):
-    nazwa = models.CharField(max_length=50, blank = False, null=False)
-    opis = models.TextField(blank = True)
-    def __str__(self):
-        return self.nazwa
+    nazwa = models.CharField(max_length=60)
+    opis = models.CharField(max_length=60, null=True, blank=True)
 
 
 class Osoba(models.Model):
-    imie = models.CharField(max_length=50, blank=False, null=False)
+    imie = models.CharField(max_length=50, blank=False, null=False)    #skrót shift +alt + strzalka w dol/gore
     nazwisko = models.CharField(max_length=50)
-    plec_wybory = [
-        ('K', 'Kobieta'),
-        ('M', 'Mezczyzna'),
-        ('I', 'Inni')
-    ]
-    plec = models.CharField(max_length=1, choices=plec_wybory, default='K')
-    stanowisko = models.ForeignKey(Stanowisko, on_delete=models.CASCADE)
-    def __str__(self):
-        return f"{self.imie} {self.nazwisko}"
+    plec = models.IntegerField(choices=PLEC.choices, default =PLEC.
+    choices[0][0])
+    stanowisko = models.ForeignKey(Stanowisko, null=True, blank =True, on_delete=models.SET_NULL)
+    data_dodania = models.DateField(auto_now_add=True)
 
 
 
