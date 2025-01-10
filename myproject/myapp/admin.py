@@ -1,16 +1,8 @@
 from django.contrib import admin
-
-# Register your models here.
-
-from .models import Team, Person, Stanowisko, Osoba
-
-
-class OsobaAdmin(admin.ModelAdmin):
-    list_display = ['imie', 'nazwisko']
-    readonly_fields = ['data_dodania']
+from .models import Team, Person, Osoba, Stanowisko
 
 
 admin.site.register(Team)
 admin.site.register(Person)
-admin.site.register(Osoba, OsobaAdmin)
-admin.site.register(Stanowisko)
+# admin.site.register(Osoba)
+# admin.site.register(Stanowisko)

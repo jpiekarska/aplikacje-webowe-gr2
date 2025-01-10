@@ -16,14 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
-    path('myapp/', include('myapp.urls')), # dołączamy reguły url z pliku myapp\urls.py
     path('admin/', admin.site.urls),
-]
-
-
-
-
-
-
+    path('myapp/', include('myapp.urls')), # prefix <host>/myapp/ dla naszej aplikacji myapp
+    path('api/', include('myapp.api_urls'))
+] + debug_toolbar_urls()
